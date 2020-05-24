@@ -75,4 +75,9 @@ public class ImageComparator {
 		}
 		return images;
 	}
+	
+	private static void error(String message) {
+		System.out.println("Error: " + message);
+		System.exit(1);
+	}
 }
