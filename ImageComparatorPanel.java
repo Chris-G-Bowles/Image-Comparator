@@ -29,6 +29,7 @@ public class ImageComparatorPanel extends JPanel implements ActionListener {
 	private JLabel leftNameLabel;
 	private JLabel rightImageLabel;
 	private JLabel rightNameLabel;
+	private JButton undoButton;
 	
 	public ImageComparatorPanel(JFrame frame, ArrayList<ImageIcon> images) {
 		//Initialize Panel Data
@@ -77,7 +78,7 @@ public class ImageComparatorPanel extends JPanel implements ActionListener {
 		notIdenticalButton.setActionCommand("Not Identical");
 		notIdenticalButton.addActionListener(this);
 		buttonPanel.add(notIdenticalButton);
-		JButton undoButton = new JButton("Undo");
+		undoButton = new JButton("-----");
 		undoButton.setActionCommand("Undo");
 		undoButton.addActionListener(this);
 		buttonPanel.add(undoButton);
@@ -108,6 +109,7 @@ public class ImageComparatorPanel extends JPanel implements ActionListener {
 			if (subindex < images.size()) {
 				rightImageLabel.setIcon(images.get(subindex));
 				rightNameLabel.setText(images.get(subindex).getDescription());
+				undoButton.setText("Undo");
 			} else {
 				if (isDuplicate[index] && isSimilar[index]) {
 					System.out.println("Duplicate & Similar: " + images.get(index).getDescription());
@@ -127,6 +129,7 @@ public class ImageComparatorPanel extends JPanel implements ActionListener {
 					leftNameLabel.setText(images.get(index).getDescription());
 					rightImageLabel.setIcon(images.get(subindex));
 					rightNameLabel.setText(images.get(subindex).getDescription());
+					undoButton.setText("-----");
 				} else {
 					if (isDuplicate[images.size() - 1] && isSimilar[images.size() - 1]) {
 						System.out.println("Duplicate & Similar: " + images.get(images.size() - 1).getDescription());
@@ -148,6 +151,9 @@ public class ImageComparatorPanel extends JPanel implements ActionListener {
 				comparisonLabel.setText("Comparison " + comparison + ":");
 				rightImageLabel.setIcon(images.get(subindex));
 				rightNameLabel.setText(images.get(subindex).getDescription());
+				if (previousComparison.isEmpty() || previousSubindex.isEmpty()) {
+					undoButton.setText("-----");
+				}
 			}
 		}
 	}
